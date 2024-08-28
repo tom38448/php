@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biscsm-app
+spec:
+  selector:
+    matchLabels:
+      app: biscsm-app
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: biscsm-app
+    spec:
+      containers:
+      - name: biscsm-app
+        image: hyd.ocir.io/sehubjapaciaas/biscsm-repo:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "500Mi"
+      imagePullSecrets:
+      - name: ocirsecret
+      restartPolicy: Always
